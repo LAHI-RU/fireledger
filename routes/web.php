@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Expense;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
@@ -7,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
-use App\Models\Expense;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     // simple export routes (we'll add functions later)
     Route::get('/exports/expenses', [ExpenseController::class, 'export'])->name('expenses.export');
     Route::get('/exports/incomes', [IncomeController::class, 'export'])->name('incomes.export');
+
+    Route::resource('transactions', TransactionController::class);
 });
 
 require __DIR__ . '/auth.php';
